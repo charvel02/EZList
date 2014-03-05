@@ -57,10 +57,10 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int OKButton=0x7f08000f;
-        public static final int action_settings=0x7f080010;
+        public static final int OKButton=0x7f080010;
+        public static final int action_settings=0x7f080011;
         public static final int addItemButton=0x7f080006;
-        public static final int editText1=0x7f08000e;
+        public static final int editText1=0x7f08000f;
         public static final int frameLayout1=0x7f080000;
         public static final int frameLayout2=0x7f080005;
         public static final int frameLayout3=0x7f080008;
@@ -68,8 +68,9 @@ containing a value of this type.
         public static final int linearLayout1=0x7f080001;
         public static final int linearLayout2=0x7f080004;
         public static final int linearLayout3=0x7f080009;
-        public static final int linearLayout4=0x7f08000b;
-        public static final int newListButton=0x7f08000d;
+        public static final int linearLayout4=0x7f08000d;
+        public static final int linearLayout5=0x7f08000b;
+        public static final int newListButton=0x7f08000e;
         public static final int saveListButton=0x7f080007;
         public static final int scrollView1=0x7f080003;
         public static final int scrollView2=0x7f08000a;

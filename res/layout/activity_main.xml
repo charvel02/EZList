@@ -12,15 +12,15 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="50sp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="50sp" >
 
         <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="32dp"
-        android:text="Test" />
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EZList"
+            android:textSize="32dp" />
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -28,10 +28,11 @@
             android:layout_height="match_parent" >
 
             <LinearLayout
-                android:id="@+id/linearLayout4"
+                android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="50sp" >
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -49,13 +50,12 @@
             android:orientation="horizontal" >
 
             <Button
-            android:id="@+id/newListButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/title"
-            android:text="New List" />  
-	
+                android:id="@+id/newListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_weight="1"
+                android:text="New List" />
         </LinearLayout>
     </FrameLayout>
 
