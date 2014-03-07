@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.EZList.BlankList"
+            android:name="com.example.EZList.EditList"
             android:label="@string/title_activity_new_list" >
         </activity>
         <activity

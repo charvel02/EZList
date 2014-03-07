@@ -17,6 +17,7 @@ import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,8 +54,38 @@ public class MainActivity extends Activity implements View.OnClickListener
 			Intent i = new Intent(getApplicationContext(), NewList.class);
 			startActivity(i);
 		}
+		for(int i = 0; i < ml.size(); i++){
+			if(v.getId() == ml.get(i).getTextView().getId()){
+				Intent j = new Intent(getApplicationContext(), EditList.class);
+				j.putExtra("listId", ml.get(i).getListId());
+				startActivity(j);
+			}	
+		}
+		
 
 	}
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPause()
+	 */
+    @Override
+    protected void onPause()
+    {
+	    // TODO Auto-generated method stub
+	    super.onPause();
+	    
+    }
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onStop()
+	 */
+    @Override
+    protected void onStop()
+    {
+	    // TODO Auto-generated method stub
+	    super.onStop();
+	    ll.removeAllViews();
+    }
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onResume()
 	 */
@@ -64,6 +95,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 	    // TODO Auto-generated method stub
 	    super.onResume();
 	    showList();
+	   
     }
 
 	public void showList(){
@@ -72,24 +104,16 @@ public class MainActivity extends Activity implements View.OnClickListener
 	 	
 		for(int i = 0; i < ml.size(); i++)
 		{
-			TextView t1 = new TextView(this);	
-			t1.setText("" +ml.get(i).getListId());
-			
-			
-			TextView t2 = new TextView(this);
-			t2.setText(ml.get(i).getListName());
-			
-			lists =  new ArrayList<LinearLayout>();
-				
-			lists.add(new LinearLayout(this));
-			lists.get(lists.size()-1).setOrientation(LinearLayout.HORIZONTAL);
-			lists.get(lists.size()-1).addView(t1);
-			lists.get(lists.size()-1).addView(t2);
-			ll.addView(lists.get(lists.size()-1));
+			MyList list = ml.get(i);
+			list.setTextView(new TextView(this));
+			list.getTextView().setId(list.getListId());
+			list.getTextView().setOnClickListener(this);
+			ll.addView(list.getTextView());
 		}
 	}
 	public static void addToArrayList(MyList al){
 		ml.add(al);
 	}
+	
 	
 }

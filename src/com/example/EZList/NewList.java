@@ -15,12 +15,12 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 public class NewList extends Activity implements View.OnClickListener
 {
-	private ListDataSource lds;
 	private EditText text;
 	
 	@Override
@@ -49,9 +49,9 @@ public class NewList extends Activity implements View.OnClickListener
 		if(v.getId() == R.id.OKButton){
 			MyList ml = new MyList(text.getText().toString());
 			MainActivity.addToArrayList(ml);		
-			Intent i = new Intent(getApplicationContext(), BlankList.class);
+			Intent i = new Intent(getApplicationContext(), EditList.class);
 			i.putExtra("listId", ml.getListId());
-	    	startActivity(i);
+	    	startActivity(i);    	
 		}
     }
 }
