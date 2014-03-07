@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViewById(R.id.newListButton).setOnClickListener(this);
+		findViewById(R.id.testDBButton).setOnClickListener(this);
 	}
 
 	@Override
@@ -49,13 +50,21 @@ public class MainActivity extends Activity implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		if(v.getId() == R.id.newListButton){
+		if(v.getId() == R.id.newListButton)
+		{
 			//start new list
 			Intent i = new Intent(getApplicationContext(), NewList.class);
 			startActivity(i);
 		}
-		for(int i = 0; i < ml.size(); i++){
-			if(v.getId() == ml.get(i).getTextView().getId()){
+		else if(v.getId() == R.id.testDBButton)
+		{
+			Intent i = new Intent(getApplicationContext(), TestDatabase.class);
+			startActivity(i);
+		}
+		for(int i = 0; i < ml.size(); i++)
+		{
+			if(v.getId() == ml.get(i).getTextView().getId())
+			{
 				Intent j = new Intent(getApplicationContext(), EditList.class);
 				j.putExtra("listId", ml.get(i).getListId());
 				startActivity(j);
