@@ -9,26 +9,26 @@
     tools:context=".EditList" >
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/MainActivityTopLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="50sp" >
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/MainActivityTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="EZList"
             android:textSize="32dp" />
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/MainActivityListScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <LinearLayout
-                android:id="@+id/linearLayout5"
+                android:id="@+id/MainActivityListLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -38,29 +38,29 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/frameLayout4"
+        android:id="@+id/MainActivityButtonFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom" >
 
         <LinearLayout
-            android:id="@+id/linearLayout4"
+            android:id="@+id/MainActivityButtonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/newListButton"
+                android:id="@+id/MainActivityNewListButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
+                android:layout_below="@id/MainActivityTitle"
                 android:layout_weight="1"
                 android:text="New List" />
             <Button
-                android:id="@+id/testDBButton"
+                android:id="@+id/MainActivityTestDBButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
+                android:layout_below="@id/MainActivityTitle"
                 android:layout_weight="1"
                 android:text="TestDB" />
         </LinearLayout>

@@ -7,7 +7,8 @@ import com.example.EZList.R;
 
 
 import EZListDatabase.DBHelper;
-import EZListDatabase.ListDataSource;
+import EZListDatabase.DatabaseHelper;
+import EZListDatabase.EZListDatabaseAdapter;
 import EZListDatabase.MyList;
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,12 +23,15 @@ import android.widget.EditText;
 public class NewList extends Activity implements View.OnClickListener
 {
 	private EditText text;
+	private EZListDatabaseAdapter dbAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_list);
+		dbAdapter = new EZListDatabaseAdapter(this);
+		dbAdapter = dbAdapter.open();
 		
 				    
 		text = (EditText) findViewById(R.id.editText1);
@@ -46,12 +50,14 @@ public class NewList extends Activity implements View.OnClickListener
     public void onClick(View v)
     {
 		
-		if(v.getId() == R.id.OKButton){
-			MyList ml = new MyList(text.getText().toString());
-			MainActivity.addToArrayList(ml);		
+		if(v.getId() == R.id.OKButton)
+		{
+			String name = text.getText().toString();
+			String id = dbAdapter.insertList(name);
 			Intent i = new Intent(getApplicationContext(), EditList.class);
-			i.putExtra("listId", ml.getListId());
-	    	startActivity(i);    	
+			i.putExtra("listId", id);
+	    	startActivity(i);
+	    	finish();
 		}
     }
 }

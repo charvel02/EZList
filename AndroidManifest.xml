@@ -34,6 +34,10 @@
             android:name="com.example.EZList.TestDatabase"
             android:label="@string/title_activity_test_database" >
         </activity>
+        <activity
+            android:name="com.example.EZList.AddItem"
+            android:label="@string/title_activity_add_item" >
+        </activity>
     </application>
 
 </manifest>

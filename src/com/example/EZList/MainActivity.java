@@ -25,9 +25,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements View.OnClickListener
 {
 	private Context context;
-	private ArrayList<LinearLayout> lists;
 	private static ArrayList<MyList> ml = new ArrayList<MyList>();
-
 	private LinearLayout ll;
 
 	@Override
@@ -35,8 +33,8 @@ public class MainActivity extends Activity implements View.OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		findViewById(R.id.newListButton).setOnClickListener(this);
-		findViewById(R.id.testDBButton).setOnClickListener(this);
+		findViewById(R.id.MainActivityNewListButton).setOnClickListener(this);
+		findViewById(R.id.MainActivityTestDBButton).setOnClickListener(this);
 	}
 
 	@Override
@@ -50,13 +48,13 @@ public class MainActivity extends Activity implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		if(v.getId() == R.id.newListButton)
+		if(v.getId() == R.id.MainActivityNewListButton)
 		{
 			//start new list
 			Intent i = new Intent(getApplicationContext(), NewList.class);
 			startActivity(i);
 		}
-		else if(v.getId() == R.id.testDBButton)
+		else if(v.getId() == R.id.MainActivityTestDBButton)
 		{
 			Intent i = new Intent(getApplicationContext(), TestDatabase.class);
 			startActivity(i);
@@ -90,7 +88,6 @@ public class MainActivity extends Activity implements View.OnClickListener
     @Override
     protected void onStop()
     {
-	    // TODO Auto-generated method stub
 	    super.onStop();
 	    ll.removeAllViews();
     }
@@ -101,21 +98,20 @@ public class MainActivity extends Activity implements View.OnClickListener
     @Override
     protected void onResume()
     {
-	    // TODO Auto-generated method stub
 	    super.onResume();
 	    showList();
 	   
     }
 
 	public void showList(){
-		ll = (LinearLayout) findViewById(R.id.linearLayout5);
+		ll = (LinearLayout) findViewById(R.id.MainActivityListLinearLayout);
 		
 	 	
 		for(int i = 0; i < ml.size(); i++)
 		{
 			MyList list = ml.get(i);
 			list.setTextView(new TextView(this));
-			list.getTextView().setId(list.getListId());
+			list.getTextView().setId(Integer.parseInt(list.getListId()));
 			list.getTextView().setOnClickListener(this);
 			ll.addView(list.getTextView());
 		}
