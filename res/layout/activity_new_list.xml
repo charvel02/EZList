@@ -6,22 +6,33 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#34282C"
     tools:context=".NewList" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/NewListEditText"
         android:inputType="text"
         android:hint="Type list name"
+        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/OKButton"
+        android:id="@+id/NewListOKButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@id/NewListEditText"
+        android:layout_below="@id/NewListEditText"
         android:layout_marginTop="38dp"
         android:text="OK" />
+    
+        <Button
+        android:id="@+id/NewListCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/NewListOKButton"
+        android:layout_below="@id/NewListEditText"
+        android:layout_marginTop="38dp"
+        android:text="Cancel" />
 
 </RelativeLayout>

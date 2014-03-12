@@ -24,18 +24,28 @@ public class NewList extends Activity implements View.OnClickListener
 {
 	private EditText text;
 	private EZListDatabaseAdapter dbAdapter;
-	
+	private String listId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_list);
-		dbAdapter = new EZListDatabaseAdapter(this);
+		processIntent();
+	    dbAdapter = new EZListDatabaseAdapter(this);
 		dbAdapter = dbAdapter.open();
+		text = (EditText) findViewById(R.id.NewListEditText);
 		
-				    
-		text = (EditText) findViewById(R.id.editText1);
-		findViewById(R.id.OKButton).setOnClickListener(this);
+		findViewById(R.id.NewListOKButton).setOnClickListener(this);
+		findViewById(R.id.NewListCancelButton).setOnClickListener(this);
+	}
+	/**
+	 * process intent data
+	 */
+	public void processIntent()
+	{
+		Intent receivedIntent = getIntent();
+		listId = receivedIntent.getStringExtra("listId");
 	}
 
 	@Override
@@ -47,17 +57,61 @@ public class NewList extends Activity implements View.OnClickListener
 	}
 
 	@Override
-    public void onClick(View v)
-    {
+	public void onClick(View v)
+	{
+		Intent i = new Intent();
 		
-		if(v.getId() == R.id.OKButton)
-		{
+		if(v.getId() == R.id.NewListOKButton)
+		{	
 			String name = text.getText().toString();
-			String id = dbAdapter.insertList(name);
-			Intent i = new Intent(getApplicationContext(), EditList.class);
-			i.putExtra("listId", id);
-	    	startActivity(i);
-	    	finish();
+			
+
+			if(!listId.equals("-1"))
+			{
+				i.putExtra("listName", name);
+				i.putExtra("listId", listId);
+				setResult(RESULT_OK, i);
+			}
+			else
+			{
+				String id = dbAdapter.insertList(name);
+				i = new Intent(getApplicationContext(), EditList.class);
+				i.putExtra("listId", id);
+				startActivity(i);
+			}
+		}
+		else if(v.getId() == R.id.NewListCancelButton)
+		{
+			if(!listId.equals("-1"))
+			{
+				setResult(RESULT_CANCELED, i);
+			}
+		}
+		finish();
+	}
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
+    @Override
+    protected void onDestroy()
+    {
+	    super.onDestroy();
+	    dbAdapter.close();
+    }
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
+    @Override
+    protected void onResume()
+    {
+	    super.onResume();
+
+		if(!listId.equals("-1"))
+		{
+			text.setText(dbAdapter.getListById(listId));
 		}
     }
+	
 }

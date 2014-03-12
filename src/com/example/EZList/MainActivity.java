@@ -1,85 +1,105 @@
 package com.example.EZList;
 
-import java.util.ArrayList;
-
-import com.example.EZList.R;
-
-import EZListDatabase.Item;
+import EZListDatabase.EZListDatabaseAdapter;
 import EZListDatabase.MyList;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.ListActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.database.Cursor;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements View.OnClickListener
+public class MainActivity extends Activity implements OnClickListener, OnLongClickListener
 {
-	private Context context;
-	private static ArrayList<MyList> ml = new ArrayList<MyList>();
 	private LinearLayout ll;
+	private EZListDatabaseAdapter dbAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		findViewById(R.id.MainActivityNewListButton).setOnClickListener(this);
-		findViewById(R.id.MainActivityTestDBButton).setOnClickListener(this);
+		setContentView(R.layout.activity_test_database);
+		ll = (LinearLayout)findViewById(R.id.TestDBListsLinearLayout);  
+        findViewById(R.id.TestDBnewListButton).setOnClickListener(this);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.test_database, menu);
 		return true;
 	}
 
 	@Override
-	public void onClick(View v)
-	{
-		if(v.getId() == R.id.MainActivityNewListButton)
-		{
-			//start new list
+    public void onClick(View v)
+    {
+	    if(v.getId() == R.id.TestDBnewListButton)
+	    {
+	    	//start new list
 			Intent i = new Intent(getApplicationContext(), NewList.class);
+			i.putExtra("listId", "-1");
+			startActivity(i);	    	
+	    }
+	    else
+	    {
+	    	Intent i = new Intent(getApplicationContext(), EditList.class);
+	    	
+	    	i.putExtra("listId", "" +v.getId());
 			startActivity(i);
-		}
-		else if(v.getId() == R.id.MainActivityTestDBButton)
+	    }
+    }
+	
+	// Call Back method  to get the result from NewList activity
+		@Override
+		protected void onActivityResult(int requestCode, int resultCode, Intent data)
 		{
-			Intent i = new Intent(getApplicationContext(), TestDatabase.class);
-			startActivity(i);
+			super.onActivityResult(requestCode, resultCode, data);
+						
+			if(resultCode != RESULT_CANCELED)
+	        {
+		        String listIdTemp = data.getExtras().getString("listId");
+		        String listNameTemp = data.getExtras().getString("listName");
+		        if(requestCode == 1)
+		        {
+			        dbAdapter.renameList(listIdTemp, listNameTemp);
+		        }
+	        }
 		}
-		for(int i = 0; i < ml.size(); i++)
-		{
-			if(v.getId() == ml.get(i).getTextView().getId())
-			{
-				Intent j = new Intent(getApplicationContext(), EditList.class);
-				j.putExtra("listId", ml.get(i).getListId());
-				startActivity(j);
-			}	
-		}
-		
+	
+	/* (non-Javadoc)
+	 * @see android.view.View.OnLongClickListener#onLongClick(android.view.View)
+	 */
+    @Override
+    public boolean onLongClick(View v)
+    {
+    	Intent editListName = new Intent(this, NewList.class);
+		editListName.putExtra("listId", "" +v.getId());
+		startActivityForResult(editListName, 1);
+	    return true;
+    }
 
-	}
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onPause()
 	 */
     @Override
     protected void onPause()
     {
-	    // TODO Auto-generated method stub
-	    super.onPause();
-	    
+	    super.onPause();	    
+    }
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
+    @Override
+    protected void onDestroy()
+    {
+	    super.onDestroy();
+	    dbAdapter.close();
     }
 
 	/* (non-Javadoc)
@@ -99,26 +119,29 @@ public class MainActivity extends Activity implements View.OnClickListener
     protected void onResume()
     {
 	    super.onResume();
+	    dbAdapter = new EZListDatabaseAdapter(this);
+		dbAdapter = dbAdapter.open();
 	    showList();
 	   
     }
-
-	public void showList(){
-		ll = (LinearLayout) findViewById(R.id.MainActivityListLinearLayout);
-		
-	 	
-		for(int i = 0; i < ml.size(); i++)
+    /**
+     * This method adds the lists to the layout
+     */
+	public void showList()
+	{
+		ll = (LinearLayout) findViewById(R.id.TestDBListsLinearLayout);
+			
+	 	Cursor allLists = dbAdapter.getAllLists();
+		for(int i = 0; i < allLists.getCount(); i++)
 		{
-			MyList list = ml.get(i);
-			list.setTextView(new TextView(this));
-			list.getTextView().setId(Integer.parseInt(list.getListId()));
-			list.getTextView().setOnClickListener(this);
-			ll.addView(list.getTextView());
+			allLists.moveToNext();
+			String listNameTemp = allLists.getString(allLists.getColumnIndex("list_name"));
+			String listIdTemp = allLists.getString(allLists.getColumnIndex("list_id"));
+			MyList ml = new MyList(listIdTemp, listNameTemp);
+			ml.setTextView(new TextView(this));
+			ml.getTextView().setOnClickListener(this);
+			ml.getTextView().setOnLongClickListener(this);
+			ll.addView(ml.getTextView());
 		}
 	}
-	public static void addToArrayList(MyList al){
-		ml.add(al);
-	}
-	
-	
 }

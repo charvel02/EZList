@@ -4,31 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="#34282C"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EditList" >
 
     <LinearLayout
-        android:id="@+id/MainActivityTopLinearLayout"
+        android:id="@+id/TestDBTopLinearLayout"
         android:layout_width="match_parent"
+        android:background="#34282C"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="50sp" >
 
         <TextView
-            android:id="@+id/MainActivityTitle"
+            android:id="@+id/TestDBtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EZList"
-            android:textSize="32dp" />
+            android:textColor="#59E817"
+            android:textStyle="bold"
+            android:text="EZListTESTDB"
+            android:textSize="32sp" />
 
         <ScrollView
-            android:id="@+id/MainActivityListScrollView"
+            android:id="@+id/TestDBListsScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <LinearLayout
-                android:id="@+id/MainActivityListLinearLayout"
+                android:id="@+id/TestDBListsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -38,32 +42,17 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/MainActivityButtonFrame"
+        android:id="@+id/TestDBButtonsFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom" >
 
-        <LinearLayout
-            android:id="@+id/MainActivityButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
             <Button
-                android:id="@+id/MainActivityNewListButton"
+                android:id="@+id/TestDBnewListButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/MainActivityTitle"
-                android:layout_weight="1"
                 android:text="New List" />
-            <Button
-                android:id="@+id/MainActivityTestDBButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/MainActivityTitle"
-                android:layout_weight="1"
-                android:text="TestDB" />
-        </LinearLayout>
+           
     </FrameLayout>
 
 </FrameLayout>
