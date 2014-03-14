@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/MainOuterFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -10,7 +10,7 @@
     tools:context=".EditList" >
 
     <LinearLayout
-        android:id="@+id/TestDBTopLinearLayout"
+        android:id="@+id/MainTopLinearLayout"
         android:layout_width="match_parent"
         android:background="#34282C"
         android:layout_height="match_parent"
@@ -18,21 +18,21 @@
         android:paddingBottom="50sp" >
 
         <TextView
-            android:id="@+id/TestDBtitle"
+            android:id="@+id/MainTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#59E817"
             android:textStyle="bold"
-            android:text="EZListTESTDB"
+            android:text="EZList"
             android:textSize="32sp" />
 
         <ScrollView
-            android:id="@+id/TestDBListsScrollView"
+            android:id="@+id/MainListsScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <LinearLayout
-                android:id="@+id/TestDBListsLinearLayout"
+                android:id="@+id/MainListsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -41,18 +41,25 @@
         </ScrollView>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/TestDBButtonsFrame"
+    <RelativeLayout
+        android:id="@+id/MainButtonsFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom" >
 
             <Button
-                android:id="@+id/TestDBnewListButton"
+                android:id="@+id/MainNewListButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Blank List" />
+            
+            <Button
+                android:id="@+id/MainNewListButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/MainNewListButton"
                 android:text="New List" />
            
-    </FrameLayout>
+    </RelativeLayout>
 
 </FrameLayout>

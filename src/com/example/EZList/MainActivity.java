@@ -22,36 +22,44 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_test_database);
-		ll = (LinearLayout)findViewById(R.id.TestDBListsLinearLayout);  
-        findViewById(R.id.TestDBnewListButton).setOnClickListener(this);
+		setContentView(R.layout.activity_main);
+		dbAdapter = new EZListDatabaseAdapter(this);
+		dbAdapter = dbAdapter.open();
+		ll = (LinearLayout)findViewById(R.id.MainListsLinearLayout);  
+        findViewById(R.id.MainNewListButton).setOnClickListener(this);
+        findViewById(R.id.MainNewListButton2).setOnClickListener(this);
+        
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.test_database, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
     public void onClick(View v)
     {
-	    if(v.getId() == R.id.TestDBnewListButton)
+		Intent i = null;
+	    if(v.getId() == R.id.MainNewListButton)
 	    {
 	    	//start new list
-			Intent i = new Intent(getApplicationContext(), NewList.class);
-			i.putExtra("listId", "-1");
-			startActivity(i);	    	
+			i = new Intent(getApplicationContext(), NewList.class);
+			i.putExtra("listId", "-1");	    	
+	    }
+	    else if(v.getId() == R.id.MainNewListButton2)
+	    {
+	    	i = new Intent(getApplicationContext(), NewList.class);
+	    	i.putExtra("listId", "-2");
 	    }
 	    else
 	    {
-	    	Intent i = new Intent(getApplicationContext(), EditList.class);
-	    	
+	    	i = new Intent(getApplicationContext(), EditList.class);	    	
 	    	i.putExtra("listId", "" +v.getId());
-			startActivity(i);
 	    }
+	    startActivity(i);
     }
 	
 	// Call Back method  to get the result from NewList activity
@@ -119,8 +127,7 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
     protected void onResume()
     {
 	    super.onResume();
-	    dbAdapter = new EZListDatabaseAdapter(this);
-		dbAdapter = dbAdapter.open();
+	    
 	    showList();
 	   
     }
@@ -129,7 +136,7 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
      */
 	public void showList()
 	{
-		ll = (LinearLayout) findViewById(R.id.TestDBListsLinearLayout);
+		ll = (LinearLayout) findViewById(R.id.MainListsLinearLayout);
 			
 	 	Cursor allLists = dbAdapter.getAllLists();
 		for(int i = 0; i < allLists.getCount(); i++)

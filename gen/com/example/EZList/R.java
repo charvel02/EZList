@@ -61,42 +61,60 @@ containing a value of this type.
         public static final int AddItemEditText=0x7f080001;
         public static final int AddItemOKButton=0x7f080002;
         public static final int AddItemTitle=0x7f080000;
-        public static final int EditListAddItemButton=0x7f08000b;
-        public static final int EditListButtonFrame=0x7f080009;
-        public static final int EditListButtonLayout=0x7f08000a;
-        public static final int EditListItemScroll=0x7f080007;
-        public static final int EditListListLinearLayout=0x7f080008;
-        public static final int EditListSaveListButton=0x7f08000c;
-        public static final int EditListTitle=0x7f080006;
-        public static final int EditListTopLinearLayout=0x7f080005;
-        public static final int NewListCancelButton=0x7f080016;
-        public static final int NewListEditText=0x7f080014;
-        public static final int NewListOKButton=0x7f080015;
-        public static final int TestDBButtonsFrame=0x7f080012;
-        public static final int TestDBListsLinearLayout=0x7f080011;
-        public static final int TestDBListsScrollView=0x7f080010;
-        public static final int TestDBTopLinearLayout=0x7f08000e;
-        public static final int TestDBnewListButton=0x7f080013;
-        public static final int TestDBtitle=0x7f08000f;
-        public static final int action_settings=0x7f080019;
+        public static final int EditListAddItemButton=0x7f080012;
+        public static final int EditListButtonFrame=0x7f080010;
+        public static final int EditListButtonLayout=0x7f080011;
+        public static final int EditListItemScroll=0x7f08000e;
+        public static final int EditListListLinearLayout=0x7f08000f;
+        public static final int EditListSaveListButton=0x7f080013;
+        public static final int EditListTitle=0x7f08000d;
+        public static final int EditListTopLinearLayout=0x7f08000c;
+        public static final int MainButtonsFrame=0x7f080019;
+        public static final int MainListsLinearLayout=0x7f080018;
+        public static final int MainListsScrollView=0x7f080017;
+        public static final int MainNewListButton=0x7f08001a;
+        public static final int MainNewListButton2=0x7f08001b;
+        public static final int MainOuterFrame=0x7f080014;
+        public static final int MainTitle=0x7f080016;
+        public static final int MainTopLinearLayout=0x7f080015;
+        public static final int NewListCancelButton=0x7f08001e;
+        public static final int NewListCopyPasteButtonFrame=0x7f080024;
+        public static final int NewListCopyPasteCancelButton=0x7f080026;
+        public static final int NewListCopyPasteEditText=0x7f080023;
+        public static final int NewListCopyPasteLinearLayout=0x7f080020;
+        public static final int NewListCopyPasteOKButton=0x7f080025;
+        public static final int NewListCopyPasteOuterFrameLayout=0x7f08001f;
+        public static final int NewListCopyPasteScrollView=0x7f080022;
+        public static final int NewListCopyPasteTitle=0x7f080021;
+        public static final int NewListEditText=0x7f08001c;
+        public static final int NewListOKButton=0x7f08001d;
+        public static final int action_settings=0x7f080029;
+        public static final int addItemButton=0x7f08000a;
         public static final int frameLayout1=0x7f080004;
-        public static final int frameLayout3=0x7f08000d;
-        public static final int listId=0x7f080017;
-        public static final int listName=0x7f080018;
+        public static final int frameLayout2=0x7f080009;
+        public static final int linearLayout1=0x7f080005;
+        public static final int linearLayout2=0x7f080008;
+        public static final int listId=0x7f080027;
+        public static final int listName=0x7f080028;
+        public static final int saveListButton=0x7f08000b;
+        public static final int scrollView1=0x7f080007;
+        public static final int title=0x7f080006;
     }
     public static final class layout {
         public static final int activity_add_item=0x7f030000;
-        public static final int activity_edit_layout=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_new_list=0x7f030003;
-        public static final int activity_test_database=0x7f030004;
-        public static final int listview_each_item=0x7f030005;
+        public static final int activity_blank_list=0x7f030001;
+        public static final int activity_edit_layout=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_new_list=0x7f030004;
+        public static final int activity_new_list_copy_paste=0x7f030005;
+        public static final int listview_each_item=0x7f030006;
     }
     public static final class menu {
         public static final int add_item=0x7f070000;
         public static final int main=0x7f070001;
         public static final int new_list=0x7f070002;
-        public static final int test_database=0x7f070003;
+        public static final int new_list_copy_paste=0x7f070003;
+        public static final int new_list_from_text_area=0x7f070004;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -104,6 +122,7 @@ containing a value of this type.
         public static final int hello_world=0x7f050002;
         public static final int title_activity_add_item=0x7f050005;
         public static final int title_activity_new_list=0x7f050003;
+        public static final int title_activity_new_list_copy_paste=0x7f050006;
         public static final int title_activity_test_database=0x7f050004;
     }
     public static final class style {

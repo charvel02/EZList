@@ -7,5 +7,6 @@
     <string name="title_activity_new_list">New List</string>
     <string name="title_activity_test_database">TestDatabase</string>
     <string name="title_activity_add_item">AddItem</string>
+    <string name="title_activity_new_list_copy_paste">NewListCopyPaste</string>
 
 </resources>
