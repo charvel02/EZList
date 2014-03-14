@@ -1,0 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/NewListCopyPasteOuterFrameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="#34282C"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".EditList" >
+
+    <LinearLayout
+        android:id="@+id/NewListCopyPasteLinearLayout"
+        android:layout_width="match_parent"
+        android:background="#34282C"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="50sp" >
+
+        <TextView
+            android:id="@+id/NewListCopyPasteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#59E817"
+            android:textStyle="bold"
+            android:text="EZListTESTDB"
+            android:textSize="32sp" />
+
+        <ScrollView
+            android:id="@+id/NewListCopyPasteScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:inputType="textMultiLine"
+                android:id="@+id/NewListCopyPasteEditText"
+                android:gravity="top|left"
+                android:textColor="#FFFFFF"
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:scrollHorizontally="true"/>
+                
+            
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/NewListCopyPasteButtonFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom" >
+
+            <Button
+                android:id="@+id/NewListCopyPasteOKButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK" />
+             <Button
+                android:id="@+id/NewListCopyPasteCancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/NewListCopyPasteOKButton"
+                android:text="Cancel" />
+           
+    </RelativeLayout>
+
+</FrameLayout>

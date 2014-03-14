@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#34282C"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AddItem" >
+
+    <TextView
+        android:id="@+id/AddItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item"
+        android:textColor="#59E817"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/AddItemEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/AddItemTitle"
+        android:layout_below="@id/AddItemTitle"
+        android:textColor="#FFFFFF"
+        android:hint="Item text"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/AddItemOKButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/AddItemEditText"
+        android:layout_below="@id/AddItemEditText"
+        android:layout_marginTop="38dp"
+        android:text="OK" />
+
+    <Button
+        android:id="@+id/AddItemCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/AddItemEditText"
+        android:layout_marginTop="38dp"
+        android:layout_toRightOf="@id/AddItemOKButton"
+        android:text="Cancel" />
+
+</RelativeLayout>
