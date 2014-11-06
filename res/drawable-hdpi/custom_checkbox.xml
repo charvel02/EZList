@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/circle_checked"
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content"
+        android:state_checked="true" 
+        android:state_pressed="false"/>
+    <item 
+        android:drawable="@drawable/circle_checked_pressed" 
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content"
+        android:state_checked="true" 
+        android:state_pressed="true"/>
+    <item 
+        android:drawable="@drawable/circle_unchecked_pressed" 
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content"
+        android:state_checked="false" 
+        android:state_pressed="true"/>
+    
+    <item 
+        android:drawable="@drawable/circle_unchecked"
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content" 
+        android:state_checked="false" 
+        android:state_pressed="false"/>
+</selector>

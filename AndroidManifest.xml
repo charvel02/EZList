@@ -5,17 +5,18 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="17" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon_only"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.EZList.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.example.EZList.SplashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,12 +24,29 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.EZList.MainActivity"
+            android:icon="@drawable/ez_smallheader"
+            android:label="">
+        </activity>
+        <activity
             android:name="com.example.EZList.EditList"
-            android:label="@string/title_activity_new_list" >
+            android:icon="@drawable/ez_smallheader"
+            android:label="" >
         </activity>
         <activity
             android:name="com.example.EZList.NewList"
-            android:label="@string/title_activity_new_list" >
+            android:icon="@drawable/ez_smallheader"
+            android:label="" >
+        </activity>
+        <activity
+            android:name="com.example.EZList.AddItem"
+            android:icon="@drawable/ez_smallheader"
+            android:label="" >
+        </activity>
+        <activity
+            android:name="com.example.EZList.NewListCopyPaste"
+            android:icon="@drawable/ez_smallheader"
+            android:label="" >
         </activity>
     </application>
 

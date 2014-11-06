@@ -1,34 +1,39 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/MainOuterFrame"
+    android:icon="@drawable/ez_smallheader"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="#333333"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EditList" >
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/MainTopLinearLayout"
         android:layout_width="match_parent"
+        android:background="#333333"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="50sp" >
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/MainTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EZList"
-            android:textSize="32dp" />
+            android:textColor="#66FF33"
+            android:textStyle="bold"
+            android:text="My Lists"
+            android:textSize="32sp" />
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/MainListsScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <LinearLayout
-                android:id="@+id/linearLayout5"
+                android:id="@+id/MainListsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -37,26 +42,18 @@
         </ScrollView>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout4"
+   <RelativeLayout
+        android:id="@+id/MainButtonsFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
             <Button
-                android:id="@+id/newListButton"
+                android:id="@+id/MainNewListButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_weight="1"
                 android:text="New List" />
-        </LinearLayout>
-    </FrameLayout>
+           
+    </RelativeLayout>
 
 </FrameLayout>

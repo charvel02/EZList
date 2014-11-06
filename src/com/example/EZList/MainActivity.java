@@ -1,41 +1,39 @@
 package com.example.EZList;
 
-import java.util.ArrayList;
-
-import com.example.EZList.R;
-
-import EZListDatabase.Item;
+import EZListDatabase.EZListDatabaseAdapter;
 import EZListDatabase.MyList;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ListActivity;
-
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.database.Cursor;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements View.OnClickListener
+public class MainActivity extends Activity implements OnClickListener, OnLongClickListener
 {
-	private Context context;
-	private ArrayList<LinearLayout> lists;
-	private static ArrayList<MyList> ml = new ArrayList<MyList>();
-
 	private LinearLayout ll;
+	private EZListDatabaseAdapter dbAdapter;
+	private AlertDialog alert;
+	private int id;
+	private int menuSelector = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		findViewById(R.id.newListButton).setOnClickListener(this);
+		dbAdapter = new EZListDatabaseAdapter(this);
+		dbAdapter = dbAdapter.open();
+		ll = (LinearLayout)findViewById(R.id.MainListsLinearLayout);  
+		findViewById(R.id.MainNewListButton2).setOnClickListener(this);
+
 	}
 
 	@Override
@@ -49,71 +47,142 @@ public class MainActivity extends Activity implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		if(v.getId() == R.id.newListButton){
-			//start new list
-			Intent i = new Intent(getApplicationContext(), NewList.class);
+		Intent i = null;
+		if(v.getId() == R.id.MainNewListButton2)
+		{
+			i = new Intent(getApplicationContext(), NewList.class);
+			i.putExtra("listId", "-2");
+		}
+		else
+		{
+			i = new Intent(getApplicationContext(), EditList.class);	    	
+			i.putExtra("listId", "" +v.getId());
+		}
+		startActivity(i);
+	}
+
+	// Call Back method  to get the result from NewList activity
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if(resultCode != RESULT_CANCELED)
+		{
+			String listIdTemp = data.getExtras().getString("listId");
+			String listNameTemp = data.getExtras().getString("listName");
+			if(requestCode == 1)
+			{
+				dbAdapter.renameList(listIdTemp, listNameTemp);
+			}
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see android.view.View.OnLongClickListener#onLongClick(android.view.View)
+	 */
+	@Override
+	public boolean onLongClick(View v)
+	{
+		menuSelector = -1;
+		Intent i = null;
+		showListOptionsDialog();
+		if(menuSelector == 0)
+		{
+			i = new Intent(getApplicationContext(), EditList.class);	    	
+			i.putExtra("listId", "" +v.getId());
 			startActivity(i);
 		}
-		for(int i = 0; i < ml.size(); i++){
-			if(v.getId() == ml.get(i).getTextView().getId()){
-				Intent j = new Intent(getApplicationContext(), EditList.class);
-				j.putExtra("listId", ml.get(i).getListId());
-				startActivity(j);
-			}	
-		}
 		
-
+/**/
+		return true;
 	}
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onPause()
 	 */
-    @Override
-    protected void onPause()
-    {
-	    // TODO Auto-generated method stub
-	    super.onPause();
-	    
-    }
+	@Override
+	protected void onPause()
+	{
+		super.onPause();	    
+	}
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		dbAdapter.close();
+	}
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onStop()
 	 */
-    @Override
-    protected void onStop()
-    {
-	    // TODO Auto-generated method stub
-	    super.onStop();
-	    ll.removeAllViews();
-    }
+	@Override
+	protected void onStop()
+	{
+		super.onStop();
+		ll.removeAllViews();
+	}
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onResume()
 	 */
-    @Override
-    protected void onResume()
-    {
-	    // TODO Auto-generated method stub
-	    super.onResume();
-	    showList();
-	   
-    }
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
 
-	public void showList(){
-		ll = (LinearLayout) findViewById(R.id.linearLayout5);
-		
-	 	
-		for(int i = 0; i < ml.size(); i++)
+		showList();
+
+	}
+	/**
+	 * This method adds the lists to the layout
+	 */
+	public void showList()
+	{
+		ll = (LinearLayout) findViewById(R.id.MainListsLinearLayout);
+
+		Cursor allLists = dbAdapter.getAllLists();
+		for(int i = 0; i < allLists.getCount(); i++)
 		{
-			MyList list = ml.get(i);
-			list.setTextView(new TextView(this));
-			list.getTextView().setId(list.getListId());
-			list.getTextView().setOnClickListener(this);
-			ll.addView(list.getTextView());
+			allLists.moveToNext();
+			String listNameTemp = allLists.getString(allLists.getColumnIndex("list_name"));
+			String listIdTemp = allLists.getString(allLists.getColumnIndex("list_id"));
+			MyList ml = new MyList(listIdTemp, listNameTemp);
+			ml.setTextView(new TextView(this));
+			ml.getTextView().setOnClickListener(this);
+			ml.getTextView().setOnLongClickListener(this);
+			ll.addView(ml.getTextView());
 		}
 	}
-	public static void addToArrayList(MyList al){
-		ml.add(al);
+
+	public void showListOptionsDialog()
+	{
+		alert = new AlertDialog.Builder(this).setItems(R.array.main_activity_long_click_options,
+				new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				
+				if(which == 0)
+				{
+					menuSelector = 0;				
+				}
+				if(which == 1)
+				{
+					menuSelector = 1;
+				}
+				if(which == 2)
+				{
+					menuSelector = 2;
+				}
+			}
+		}).show();
 	}
-	
-	
 }
+
+	
