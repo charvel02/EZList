@@ -42,24 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Button
+        <Button
                 android:id="@+id/addItemButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Item" />
-
-            <Button
-                android:id="@+id/saveListButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save List" />
-        </LinearLayout>
     </FrameLayout>
 
 </FrameLayout>

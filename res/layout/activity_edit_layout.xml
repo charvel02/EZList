@@ -3,10 +3,7 @@
     android:id="@+id/frameLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#34282C"
+    android:background="#333333"
     tools:context=".EditList" >
 
     <LinearLayout
@@ -14,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="50sp"
-        android:background="#34282C"
+        android:background="#333333"
         android:orientation="vertical" >
 
         <TextView
@@ -22,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New List"
-			android:textColor="#59E817"
+			android:textColor="#66ff33"
             android:textStyle="bold"
             android:textSize="32sp" />
 
@@ -40,30 +37,17 @@
         </ScrollView>
     </LinearLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/EditListButtonFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom" >
-
-        <LinearLayout
-            android:id="@+id/EditListButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Button
+		
+        <Button
                 android:id="@+id/EditListAddItemButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Item" />
-
-            <Button
-                android:id="@+id/EditListSaveListButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save List" />
-        </LinearLayout>
-    </FrameLayout>
+                android:text="Add Item" /> 
+    </RelativeLayout>
 
 </FrameLayout>

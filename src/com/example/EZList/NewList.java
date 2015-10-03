@@ -9,7 +9,7 @@ import com.example.EZList.R;
 import EZListDatabase.DBHelper;
 import EZListDatabase.DatabaseHelper;
 import EZListDatabase.EZListDatabaseAdapter;
-import EZListDatabase.MyList;
+import EZListDatabase.MyListContent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -31,11 +31,15 @@ public class NewList extends Activity implements View.OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_list);
+		
+		//Receive data from other Activities
 		processIntent();
+		
 		dbAdapter = new EZListDatabaseAdapter(this);
 		dbAdapter = dbAdapter.open();
+		
+		//Setup views
 		text = (EditText) findViewById(R.id.NewListEditText);
-
 		findViewById(R.id.NewListOKButton).setOnClickListener(this);
 		findViewById(R.id.NewListCancelButton).setOnClickListener(this);
 	}
@@ -70,7 +74,7 @@ public class NewList extends Activity implements View.OnClickListener
 			{
 				i.putExtra("listName", name);
 				i.putExtra("listId", listId);
-				setResult(RESULT_OK, i);
+				dbAdapter.renameList(listId, name);
 			}
 			else
 			{

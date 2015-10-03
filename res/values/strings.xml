@@ -8,5 +8,23 @@
     <string name="title_activity_test_database">TestDatabase</string>
     <string name="title_activity_add_item">AddItem</string>
     <string name="title_activity_new_list_copy_paste">NewListCopyPaste</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+
+    <string-array name="main_activity_long_click_options">
+        <item>Open</item>
+        <item>Rename</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="edit_list_long_click_options">
+        <item>Rename</item>
+        <item>Delete</item>
+    </string-array>
+
+    <string name="title_list_list">Lists</string>
+    <string name="title_list_detail">List Detail</string>
+    <string name="title_mylist_list">MyLists</string>
+    <string name="title_mylist_detail">MyList Detail</string>
+    <string name="title_activity_main_activity_list">MainActivityList</string>
+    <string name="title_activity_edit_list_list">EditListList</string>
 
 </resources>

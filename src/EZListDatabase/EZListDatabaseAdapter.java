@@ -48,8 +48,7 @@ public class EZListDatabaseAdapter
 	// Variable to hold the database instance
     public  SQLiteDatabase db;
     
- // Context of the application using the database.
-    private final Context context;
+
     
  // Database open/upgrade helper
     private DatabaseHelper dbHelper;
@@ -61,10 +60,7 @@ public class EZListDatabaseAdapter
 	 */
     public EZListDatabaseAdapter(Context context)
     {
-	    this.context = context;
-	    dbHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
-	    
-	    
+	   dbHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);	    
     }
     
     /**
@@ -120,8 +116,7 @@ public class EZListDatabaseAdapter
         return cursor.getString(cursor.getColumnIndex("list_id"));
     }
     
-    /**TODO: figure out what is being returned
-     * 
+    /** 
      * @return number of entries deleted
      * @param id - id of list to be deleted
      */
@@ -159,8 +154,7 @@ public class EZListDatabaseAdapter
     	 s = cursor.getString(cursor.getColumnIndex(LIST_NAME));
     	 return s;
     }
-    /**TODO: figure out what is being returned
-     * 
+    /** 
      * @param id of list to be renamed
      * @param newName of the list
      * @return number of entries renamed
@@ -197,8 +191,7 @@ public class EZListDatabaseAdapter
         return cursor.getString(cursor.getColumnIndex(ITEM_ID));    	
     }
     
-    /**TODO: figure out what this returns
-     * 
+    /** 
      * @param id of item to be deleted
      * @return numEntriesDeleted
      */

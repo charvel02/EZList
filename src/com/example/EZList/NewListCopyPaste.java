@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewListCopyPaste extends Activity implements OnClickListener
 {
@@ -18,7 +19,6 @@ public class NewListCopyPaste extends Activity implements OnClickListener
 	private EditText et;
 	private EZListDatabaseAdapter dbAdapter;
 	private String listId;
-	private ClipboardManager ClipMan;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -28,13 +28,12 @@ public class NewListCopyPaste extends Activity implements OnClickListener
 
 		dbAdapter = new EZListDatabaseAdapter(this);
 		dbAdapter.open();
+		
+		//Receive data from other Activities
 		processIntent();
-		//ClipMan = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		//CharSequence pasteData="";
-		//ClipData.Item item = ClipMan.getPrimaryClip().getItemAt(0);
-		//pasteData = item.getText();
+		
+		//Set up views
 		et = (EditText) findViewById(R.id.NewListCopyPasteEditText);
-		//et.setText(pasteData);
 		findViewById(R.id.NewListCopyPasteOKButton).setOnClickListener(this);
 		findViewById(R.id.NewListCopyPasteCancelButton).setOnClickListener(this);
 	}
@@ -52,13 +51,14 @@ public class NewListCopyPaste extends Activity implements OnClickListener
 	{
 		if(v.getId() == R.id.NewListCopyPasteOKButton)
 		{
-
-
 			String[] items = et.getText().toString().split("\n");
 
 			for(int i = 0; i < items.length; i++)
-			{
-				dbAdapter.insertItem(listId, items[i]);
+			{	
+				if(!items[i].trim().isEmpty())
+				{
+					dbAdapter.insertItem(listId, items[i]);
+				}
 			}	    
 			finish();
 		}
@@ -66,7 +66,7 @@ public class NewListCopyPaste extends Activity implements OnClickListener
 		{
 			finish();
 		}
-		
+
 	}
 	public void processIntent()
 	{
@@ -74,4 +74,15 @@ public class NewListCopyPaste extends Activity implements OnClickListener
 		listId = receivedIntent.getStringExtra("listId");
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
+    @Override
+    protected void onDestroy()
+    {
+	    super.onDestroy();
+	    dbAdapter.close();
+    }
+	
+	
 }

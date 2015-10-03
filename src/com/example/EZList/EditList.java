@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import EZListDatabase.EZListDatabaseAdapter;
 import EZListDatabase.Item;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,15 +24,11 @@ import android.widget.TextView;
 
 public class EditList extends Activity implements View.OnClickListener, View.OnLongClickListener
 {
-	private Context context;
 	private LinearLayout ll = null;
-	private FrameLayout fl = null;
 	private ArrayList<Item> itemList;
-	private LinearLayout il;
 	private String listId;
-	private EditText et;
-	private EditText temp;
 	private EZListDatabaseAdapter dbAdapter;
+	private AlertDialog alert;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -42,7 +40,6 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 		dbAdapter = dbAdapter.open();
 		setContentView(R.layout.activity_edit_layout);
 		findViewById(R.id.EditListAddItemButton).setOnClickListener(this);
-		findViewById(R.id.EditListSaveListButton).setOnClickListener(this);
 
 	}
 
@@ -66,26 +63,6 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 			startActivityForResult(addItemIntent, 1);
 
 		}
-		else if(v.getId() == R.id.EditListSaveListButton)
-		{
-
-			finish();
-			/*for(int i = 0; i < itemList.size(); i++)
-			{
-				if(itemList.get(i).getListId() == listId && itemList.get(i).getName()=="")
-				{
-					for(int j = 0; j < items.size(); j++)
-					{
-						if(itemList.get(i).getId() == items.get(j).getId())
-						{
-							itemList.get(i).saveItem();
-						}
-					}
-
-				}*/
-		}
-		//Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-		//startActivity(intent);
 		else
 		{		
 			/*Intent editItemIntent = new Intent(this, AddItem.class);
@@ -105,7 +82,7 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 		Intent receivedIntent = getIntent();
 		listId = receivedIntent.getStringExtra("listId");
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onResume()
 	 */
@@ -138,7 +115,7 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 
 		 */
 	}
-		
+
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onPause()
@@ -198,11 +175,7 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 	@Override
 	public boolean onLongClick(View v)
 	{
-		Intent editItemIntent = new Intent(this, AddItem.class);
-		editItemIntent.putExtra("itemId", "" +v.getId());
-		editItemIntent.putExtra("listId", listId);
-		editItemIntent.putExtra("itemText", dbAdapter.getItemById("" +v.getId()));
-		startActivityForResult(editItemIntent, 2);
+		showListOptionsDialog("" +v.getId());
 		return true;
 	}
 	/**
@@ -220,22 +193,22 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 			String itemIdTemp = listItems.getString(listItems.getColumnIndex("item_id"));
 			String itemText = listItems.getString(listItems.getColumnIndex("item_name"));
 			String checkedTemp = listItems.getString(listItems.getColumnIndex("checked"));
-			Item item = new Item(listIdTemp, itemIdTemp, itemText);			
+			Item item = new Item(listIdTemp, itemIdTemp, itemText, checkedTemp);			
 			item.setCheckBox(new CheckBox(this));
 			if(checkedTemp.equals("1"))
 			{
 				item.getCheckBox().setChecked(true);
 			}
-			
+
 			item.getCheckBox().setOnClickListener(new OnClickListener()
 			{
-				
+
 				@Override
 				public void onClick(View v)
 				{
 					dbAdapter.setCheckedField("" +v.getId());
 					rebuildList();
-					
+
 				}
 			});
 			item.setTextView(new TextView(this));		
@@ -244,6 +217,32 @@ public class EditList extends Activity implements View.OnClickListener, View.OnL
 
 			//ll.addView(et);
 		}	
+	}
+	public void showListOptionsDialog(String id)
+	{
+		final String itemId = id;
+		alert = new AlertDialog.Builder(this).setItems(R.array.edit_list_long_click_options,
+				new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				Intent i = null;
+				if(which == 0)
+				{
+					i = new Intent(getApplicationContext(), AddItem.class);
+					i.putExtra("itemId", itemId);
+					i.putExtra("listId", listId);
+					i.putExtra("itemText", dbAdapter.getItemById(itemId));
+					startActivityForResult(i, 2);
+				}
+				if(which == 1)
+				{
+					dbAdapter.deleteItem(itemId);
+					rebuildList();
+				}
+			}
+		}).show();
 	}
 }
 
