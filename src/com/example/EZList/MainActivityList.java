@@ -3,7 +3,7 @@ package com.example.EZList;
 import java.util.ArrayList;
 
 import EZListDatabase.EZListDatabaseAdapter;
-import EZListDatabase.MyListAdapter;
+//import EZListDatabase.MyListAdapter;
 import EZListDatabase.MyListContent.MyList;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -71,7 +71,7 @@ public class MainActivityList extends Activity implements OnClickListener
 					int position, long id)
 			{
 				MyList clicked = lists.get(position);
-				Intent i = new Intent(getApplicationContext(), EditList.class);	    	
+				Intent i = new Intent(getApplicationContext(), EditList.class);
 				i.putExtra("listId", "" +clicked.getListId());
 				startActivity(i);	            
 			}
@@ -123,11 +123,11 @@ public class MainActivityList extends Activity implements OnClickListener
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+/*		int id = item.getItemId();
 		if(id == R.id.action_settings)
 		{
 			return true;
-		}
+		}*/
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -142,7 +142,7 @@ public class MainActivityList extends Activity implements OnClickListener
 		}
 		else
 		{
-			i = new Intent(getApplicationContext(), EditList.class);	    	
+			i = new Intent(getApplicationContext(), EditList.class);
 			i.putExtra("listId", "" +v.getId());
 		}
 		startActivity(i);

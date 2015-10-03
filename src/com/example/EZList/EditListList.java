@@ -1,4 +1,5 @@
-/*package com.example.EZList;
+/*
+package com.example.EZList;
 
 import java.util.ArrayList;
 
@@ -28,10 +29,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class EditListList extends Activity implements OnClickListener, OnCheckedChangeListener
+public class EditListList extends Activity implements OnClickListener*/
+/*, OnCheckedChangeListener*//*
+
 {
 	private String listId;
 	private ListView lv;
+	private String itemId;
 	ArrayList<Item> itemList;
 	MyListAdapter itemAdapter;
 	private EZListDatabaseAdapter dbAdapter;
@@ -69,17 +73,16 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+	*/
+/*	int id = item.getItemId();
 		if(id == R.id.action_settings)
 		{
 			return true;
-		}
+		}*//*
+
 		return super.onOptionsItemSelected(item);
 	}
 
-	 (non-Javadoc)
-	 * @see android.app.Activity#onResume()
-	 
 	@Override
 	protected void onResume()
 	{
@@ -90,13 +93,11 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 
 	private void registerClick()
 	{
-		lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-		{
+		lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id)
-			{
+										   int position, long id) {
 				Item clicked = itemList.get(position);
 				showListOptionsDialog(clicked.getItemId());
 				return true;
@@ -113,17 +114,17 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 		Cursor listItems = dbAdapter.getAllItemsFromList("" +listId);
 		for(int i = 0; i < listItems.getCount(); i++)
 		{
-			listItems.moveToNext();	
+			listItems.moveToNext();
 			String listIdTemp = listItems.getString(listItems.getColumnIndex("il_list_id"));
 			String itemIdTemp = listItems.getString(listItems.getColumnIndex("item_id"));
 			String itemText = listItems.getString(listItems.getColumnIndex("item_name"));
 			String checkedTemp = listItems.getString(listItems.getColumnIndex("checked"));
 
-			Item item = new Item(listIdTemp, itemIdTemp, itemText, checkedTemp);		
+			Item item = new Item(listIdTemp, itemIdTemp, itemText, checkedTemp);
 			itemList.add(item);
-		}	
-		
-		itemAdapter = new MyListAdapter();
+		}
+
+		MyListAdapter itemAdapter = new MyListAdapter();
 		lv.setAdapter(itemAdapter);
 	}
 
@@ -131,7 +132,7 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 	public void onClick(View v)
 	{
 		if(v.getId() == R.id.EditListAddItemButton)
-		{			
+		{
 			Intent addItemIntent = new Intent(this, AddItem.class);
 			addItemIntent.putExtra("listId", "" +listId);
 			addItemIntent.putExtra("itemId", "-1");
@@ -145,31 +146,28 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 		final String itemId = id;
 		alert = new AlertDialog.Builder(this).setItems(R.array.edit_list_long_click_options,
 				new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				Intent i = null;
-				if(which == 0)
 				{
-					i = new Intent(getApplicationContext(), AddItem.class);
-					i.putExtra("itemId", itemId);
-					i.putExtra("listId", listId);
-					i.putExtra("itemText", dbAdapter.getItemById(itemId));
-					startActivityForResult(i, 2);
-				}
-				if(which == 1)
-				{
-					dbAdapter.deleteItem(itemId);
-					onResume();
-				}
-			}
-		}).show();
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						Intent i = null;
+						if(which == 0)
+						{
+							i = new Intent(getApplicationContext(), AddItem.class);
+							i.putExtra("itemId", itemId);
+							i.putExtra("listId", listId);
+							i.putExtra("itemText", dbAdapter.getItemById(itemId));
+							startActivityForResult(i, 2);
+						}
+						if(which == 1)
+						{
+							dbAdapter.deleteItem(itemId);
+							onResume();
+						}
+					}
+				}).show();
 	}
 
-	*//**
-	 * process intent data
-	 *//*
 	private void processIntent()
 	{
 		Intent receivedIntent = getIntent();
@@ -201,7 +199,8 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	@Override
+*/
+/*	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	{
 		int pos = lv.getPositionForView(buttonView);
@@ -210,66 +209,52 @@ public class EditListList extends Activity implements OnClickListener, OnChecked
 			Item currentItem = itemList.get(pos);
 			dbAdapter.setCheckedField(currentItem.getItemId());
 		}
-	}
+	}*//*
 
-		private class MyListAdapter extends ArrayAdapter<Item>
+
+	private class MyListAdapter extends ArrayAdapter<Item>
+	{
+		public MyListAdapter()
 		{
-			public MyListAdapter()
+			super(EditListList.this, R.layout.item_layout, itemList);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			View itemListView = convertView;
+			if(itemListView == null)
 			{
-				super(EditListList.this, R.layout.item_layout, itemList);
-			}
-	
-			 (non-Javadoc)
-			 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
-			 
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent)
-			{
-				View itemListView = convertView;
-				if(itemListView == null)
-				{
-					itemListView = getLayoutInflater().inflate(R.layout.item_layout, parent, false);
-				}
-				
-				//Get current item
-				Item currentItem = itemList.get(position);
-				
-				final ViewHolder viewHolder = new ViewHolder();
-				
-				//TextView for Item title
-				viewHolder.text = (TextView) itemListView.findViewById(R.id.itemTitle);
-				viewHolder.text.setText(currentItem.getItemName()); 
-				
-				//CheckBox for Item checkbox
-				viewHolder.checkBox = (CheckBox) itemListView.findViewById(R.id.itemCheckBox);
-				
-				if(currentItem.getChecked().equals("1"))
-				{
-					viewHolder.checkBox.setChecked(true);
-				}
-	
-				viewHolder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
-				{
-	
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-					{
-						Item checkChanged = (Item) viewHolder.checkBox.getTag();
-						Toast.makeText(EditListList.this, checkChanged.getItemId(), Toast.LENGTH_LONG);
-						//dbAdapter.setCheckedField(checkChanged.getItemId());
-						onResume();
-	
-					}
-				});
-	
-	
-	
-	
-	
-				return itemListView;
+				itemListView = getLayoutInflater().inflate(R.layout.item_layout, parent, false);
 			}
 
+			//Get current item
+			Item currentItem = itemList.get(position);
+			itemId = currentItem.getItemId();
 
-}
+			//Fill the view
+			TextView itemTitle = (TextView) itemListView.findViewById(R.id.itemTitle);
+			itemTitle.setText(currentItem.getItemName());
+
+			CheckBox checkBox = (CheckBox) itemListView.findViewById((R.id.itemCheckBox));
+			if(currentItem.getChecked().equals("1")) {
+				checkBox.setChecked(true);
+			}else{
+				checkBox.setChecked(false);
+			}
+			checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+					dbAdapter.setCheckedField(itemId);
+					notifyDataSetChanged();
+
+				}
+			});
+
+			return itemListView;
+		}
+
+
+	}
 }
 */

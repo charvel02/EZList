@@ -1,3 +1,4 @@
+/*
 package EZListDatabase;
 
 import java.util.ArrayList;
@@ -16,12 +17,14 @@ public class MyListAdapter extends ArrayAdapter<MyList>
 	private final Context context;
 	private ArrayList<MyList> lists; 
 
-	/**
+	*/
+/**
 	 * @param context
 	 * @param resource
 	 * @param listItemLayout 
 	 * @param textViewResourceId
-	 */
+	 *//*
+
     public MyListAdapter(Context context, int resource, ArrayList<MyList> al)
     {
 	    super(context, resource);
@@ -55,3 +58,4 @@ public class MyListAdapter extends ArrayAdapter<MyList>
     }
 
 }
+*/
